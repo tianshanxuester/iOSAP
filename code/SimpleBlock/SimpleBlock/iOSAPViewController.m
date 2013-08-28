@@ -22,11 +22,26 @@ int(^add)(int, int);
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    add = ^(int a, float b){
+    add = ^(int a, int b){
         return a + b;
     };
     NSLog(@"%@", [add class]);
     NSLog(@"%i", [add retainCount]);
+    
+    [self simpleBlock];
+
+}
+
+- (void)simpleBlock
+{
+    __block int x = 1;
+    void (^outputValue) (int)  = ^(int y)  {
+        x = 3;
+        NSLog(@"x is %i, y is %i", x, y);
+    };
+    NSLog(@"origin x is %i", x);
+    outputValue(2);
+    NSLog(@"x is %i", x);
 }
 
 - (void)didReceiveMemoryWarning
