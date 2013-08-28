@@ -10,4 +10,6 @@
 
 @interface iOSAPViewController : UIViewController
 
+@property (nonatomic, copy) int (^addWithCpp)(int, int);
+
 @end

@@ -8,6 +8,7 @@
 
 #import "iOSAPViewController.h"
 #import <objc/runtime.h>
+#import "SimpleCalculator.h"
 
 int(^add)(int, int);
 
@@ -28,8 +29,8 @@ int(^add)(int, int);
     NSLog(@"%@", [add class]);
     NSLog(@"%i", [add retainCount]);
     
-    [self simpleBlock];
-
+//    [self simpleBlock];
+    [self simpleBlockWithCPP];
 }
 
 - (void)simpleBlock
@@ -42,6 +43,25 @@ int(^add)(int, int);
     NSLog(@"origin x is %i", x);
     outputValue(2);
     NSLog(@"x is %i", x);
+}
+
+- (void)simpleBlockWithCPP
+{
+    SimpleCalculator simpleCalculator;
+    NSLog(@"%p", &simpleCalculator);
+    self.addWithCpp = ^(int a, int b) {
+        NSLog(@"%p", &simpleCalculator);
+        NSLog(@"simpleCalculator.tag = %i", simpleCalculator.tag);
+        return simpleCalculator.add(a, b);
+    };
+    
+    simpleCalculator.tag = 10;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.addWithCpp(1, 2);
 }
 
 - (void)didReceiveMemoryWarning
