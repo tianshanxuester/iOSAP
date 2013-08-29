@@ -20,6 +20,8 @@ int SimpleCalculator::add(int a, int b) const
 
 SimpleCalculator::SimpleCalculator(const SimpleCalculator &another)
 {
-    std::cout<<"SimpleCalculator copy constructor is invoked"<<&another<<"\t"<<this<<std::endl;
+    std::cout<<"SimpleCalculator copy constructor is invoked"<<std::endl;
+    std::cout<<"address of another is: "<<&another<<std::endl;
+    std::cout<<"address of this is: "<<this<<std::endl;
     tag = another.tag;
 }

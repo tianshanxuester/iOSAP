@@ -22,12 +22,6 @@ int(^add)(int, int);
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    add = ^(int a, int b){
-        return a + b;
-    };
-    NSLog(@"%@", [add class]);
-    NSLog(@"%i", [add retainCount]);
     
 //    [self simpleBlock];
     [self simpleBlockWithCPP];
@@ -47,21 +41,36 @@ int(^add)(int, int);
 
 - (void)simpleBlockWithCPP
 {
-    SimpleCalculator simpleCalculator;
-    NSLog(@"%p", &simpleCalculator);
-    self.addWithCpp = ^(int a, int b) {
-        NSLog(@"%p", &simpleCalculator);
+    SimpleCalculator *simpleCalculator = new SimpleCalculator();
+    NSLog(@"simpleCalculator original address is：%p", simpleCalculator);
+    int (^addWithCpp)(int, int) = ^(int a, int b) {
+        NSLog(@"simpleCalculator address is：%p", simpleCalculator);
+        NSLog(@"simpleCalculator.tag = %i", simpleCalculator->tag);
+        return simpleCalculator->add(a, b);
+    };
+    simpleCalculator->tag = 10;
+    int sum = addWithCpp(1, 2);
+    NSLog(@"sum is %i", sum);
+}
+
+- (void)simpleBlockWithCPP2
+{
+    __block SimpleCalculator simpleCalculator = SimpleCalculator();
+    NSLog(@"simpleCalculator original address is：%p", &simpleCalculator);
+    int (^addWithCpp)(int, int) = ^(int a, int b) {
+        NSLog(@"simpleCalculator address is：%p", &simpleCalculator);
         NSLog(@"simpleCalculator.tag = %i", simpleCalculator.tag);
         return simpleCalculator.add(a, b);
     };
-    
     simpleCalculator.tag = 10;
+    int sum = addWithCpp(1, 2);
+    NSLog(@"sum is %i", sum);
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.addWithCpp(1, 2);
+//    self.addWithCpp(1, 2);
 }
 
 - (void)didReceiveMemoryWarning
