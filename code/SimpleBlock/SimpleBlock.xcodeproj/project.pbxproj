@@ -16,8 +16,9 @@
 		E24B1FB317C9FD1500CD475A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = E24B1FB217C9FD1500CD475A /* Default.png */; };
 		E24B1FB517C9FD1500CD475A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E24B1FB417C9FD1500CD475A /* Default@2x.png */; };
 		E24B1FB717C9FD1500CD475A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E24B1FB617C9FD1500CD475A /* Default-568h@2x.png */; };
-		E24B1FBA17C9FD1500CD475A /* iOSAPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E24B1FB917C9FD1500CD475A /* iOSAPViewController.m */; };
+		E24B1FBA17C9FD1500CD475A /* iOSAPViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E24B1FB917C9FD1500CD475A /* iOSAPViewController.mm */; };
 		E24B1FBD17C9FD1500CD475A /* iOSAPViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E24B1FBB17C9FD1500CD475A /* iOSAPViewController.xib */; };
+		E2B7B7C717CE3C61006021BA /* SimpleCalculator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2B7B7C517CE3C61006021BA /* SimpleCalculator.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,8 +36,10 @@
 		E24B1FB417C9FD1500CD475A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		E24B1FB617C9FD1500CD475A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		E24B1FB817C9FD1500CD475A /* iOSAPViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iOSAPViewController.h; sourceTree = "<group>"; };
-		E24B1FB917C9FD1500CD475A /* iOSAPViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOSAPViewController.m; sourceTree = "<group>"; };
+		E24B1FB917C9FD1500CD475A /* iOSAPViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = iOSAPViewController.mm; sourceTree = "<group>"; };
 		E24B1FBC17C9FD1500CD475A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/iOSAPViewController.xib; sourceTree = "<group>"; };
+		E2B7B7C517CE3C61006021BA /* SimpleCalculator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimpleCalculator.cpp; sourceTree = "<group>"; };
+		E2B7B7C617CE3C61006021BA /* SimpleCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleCalculator.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,8 +89,10 @@
 				E24B1FAF17C9FD1500CD475A /* iOSAPAppDelegate.h */,
 				E24B1FB017C9FD1500CD475A /* iOSAPAppDelegate.m */,
 				E24B1FB817C9FD1500CD475A /* iOSAPViewController.h */,
-				E24B1FB917C9FD1500CD475A /* iOSAPViewController.m */,
+				E24B1FB917C9FD1500CD475A /* iOSAPViewController.mm */,
 				E24B1FBB17C9FD1500CD475A /* iOSAPViewController.xib */,
+				E2B7B7C617CE3C61006021BA /* SimpleCalculator.h */,
+				E2B7B7C517CE3C61006021BA /* SimpleCalculator.cpp */,
 				E24B1FA717C9FD1500CD475A /* Supporting Files */,
 			);
 			path = SimpleBlock;
@@ -176,7 +181,8 @@
 			files = (
 				E24B1FAD17C9FD1500CD475A /* main.m in Sources */,
 				E24B1FB117C9FD1500CD475A /* iOSAPAppDelegate.m in Sources */,
-				E24B1FBA17C9FD1500CD475A /* iOSAPViewController.m in Sources */,
+				E24B1FBA17C9FD1500CD475A /* iOSAPViewController.mm in Sources */,
+				E2B7B7C717CE3C61006021BA /* SimpleCalculator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +303,7 @@
 				E24B1FC217C9FD1500CD475A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
