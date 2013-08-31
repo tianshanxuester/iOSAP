@@ -55,13 +55,14 @@ int(^add)(int, int);
 
 - (void)simpleBlockWithCPP2
 {
-    __block SimpleCalculator simpleCalculator = SimpleCalculator();
+    SimpleCalculator simpleCalculator = SimpleCalculator();
     NSLog(@"simpleCalculator original address is：%p", &simpleCalculator);
     self.addWithCpp = ^(int a, int b) {
         NSLog(@"simpleCalculator address is：%p", &simpleCalculator);
         NSLog(@"simpleCalculator.tag = %i", simpleCalculator.tag);
         return simpleCalculator.add(a, b);
     };
+    NSLog(@"simpleCalculator address after block is：%p", &simpleCalculator);
     simpleCalculator.tag = 10;
 }
 
