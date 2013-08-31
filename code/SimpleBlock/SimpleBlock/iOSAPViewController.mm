@@ -34,11 +34,18 @@ int(^add)(int, int);
     NSLog(@"self.retainCount is %i", self.retainCount);
     int (^addWithObjc)(int, int) = ^(int a, int b) {
         self.tag = 2;
-        return a + b;
+        // 调用self方法来执行具体的加法操作
+        return [self add:a b:b];
     };
     NSLog(@"self.retainCount is %i", self.retainCount);
-    addWithObjc(1, 2);
+    int sum = addWithObjc(1, 2);
     NSLog(@"self.tag is %i", self.tag);
+    NSLog(@"sum is %i", sum);
+}
+
+- (int)add:(int)a b:(int)b
+{
+    return a + b;
 }
 @end
 
