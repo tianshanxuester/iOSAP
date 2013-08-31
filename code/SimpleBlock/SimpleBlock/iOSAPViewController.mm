@@ -15,6 +15,9 @@ int(^add)(int, int);
 
 @interface iOSAPViewController ()
 
+@property (nonatomic, copy) int (^addWithObjC)(int, int);
+@property (nonatomic, assign) int tag;
+
 @end
 
 @implementation iOSAPViewController
@@ -22,11 +25,31 @@ int(^add)(int, int);
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-//    [self simpleBlock];
-    [self simpleBlockWithCPP2];
+    [self simpleBlockWithObjC];
 }
 
+- (void)simpleBlockWithObjC
+{
+    self.tag = 1;
+    NSLog(@"self.retainCount is %i", self.retainCount);
+    int (^addWithObjc)(int, int) = ^(int a, int b) {
+        self.tag = 2;
+        return a + b;
+    };
+    NSLog(@"self.retainCount is %i", self.retainCount);
+    addWithObjc(1, 2);
+    NSLog(@"self.tag is %i", self.tag);
+}
+@end
+
+#if 0
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+int sum = self.addWithObjC(1, 2);
+NSLog(@"sum is %i", sum);
 - (void)simpleBlock
 {
     __block int x = 1;
@@ -66,17 +89,9 @@ int(^add)(int, int);
     simpleCalculator.tag = 10;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    int sum = self.addWithCpp(1, 2);
-    NSLog(@"sum is %i", sum);
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-@end
+#endif
