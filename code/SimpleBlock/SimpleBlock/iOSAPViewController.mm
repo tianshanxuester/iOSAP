@@ -12,12 +12,57 @@
 
 int(^add)(int, int);
 
+@interface RealCalcuator : NSObject
+
+@property (nonatomic, copy) int (^addWithObjC)(int, int);
+
+@end
+
+@implementation RealCalcuator
+
+- (int)add:(int)a b:(int)b
+{
+    return self.addWithObjC(a, b);
+}
+
+@end
+
+@interface SimpleCalculatorObjC : NSObject
+@property (nonatomic, retain) NSString *stringForTest;
+@property (nonatomic, retain) RealCalcuator *realCalculator;
+@end
+
+@implementation SimpleCalculatorObjC
+
+- (id)init
+{
+    if (self = [super init]) {
+        self.realCalculator = [[[RealCalcuator alloc] init] autorelease];
+        self.stringForTest = @"just for test";
+        NSLog(@"self.retainCount is %i", self.retainCount);
+        NSLog(@"self.stringForTest.retainCount is %i", self.stringForTest.retainCount);
+        self.realCalculator.addWithObjC = ^(int a, int b) {
+            NSLog(@"%@", self.stringForTest);
+            return a + b;
+        };
+        NSLog(@"self.retainCount is %i", self.retainCount);
+        NSLog(@"self.stringForTest.retainCount is %i", self.stringForTest.retainCount);
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    NSLog(@"dealloc of %@ is invoked", self);
+    self.stringForTest = nil;
+    [super dealloc];
+}
+
+@end
 
 @interface iOSAPViewController ()
 
-@property (nonatomic, copy) int (^addWithObjC)(int, int);
 @property (nonatomic, assign) int tag;
-@property (nonatomic, retain) NSArray *arrayForTest;
 
 @end
 
@@ -26,34 +71,11 @@ int(^add)(int, int);
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.arrayForTest = [NSArray arrayWithObject:@"just for test"];
-    [self simpleBlockWithObjC];
-}
-
-- (void)simpleBlockWithObjC
-{
-    self.tag = 1;
-    NSLog(@"self.retainCount is %i", self.retainCount);
-    NSLog(@"self.arrayForTest.retainCount is %i", self.arrayForTest.retainCount);
-    self.addWithObjC = ^(int a, int b) {
-        NSLog(@"%@", self.arrayForTest);
-        // 调用self方法来执行具体的加法操作
-        return a + b;
-    };
-    NSLog(@"self.retainCount is %i", self.retainCount);
-    NSLog(@"self.arrayForTest.retainCount is %i", self.arrayForTest.retainCount);
-    NSLog(@"self.tag is %i", self.tag);
-}
-
-- (int)add:(int)a b:(int)b
-{
-    return a + b;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.addWithObjC(1, 2);
+    SimpleCalculatorObjC *simpleCalculatorObjC = [[SimpleCalculatorObjC alloc] init];
+    // 为了演示方便，下面这行代码使用了拖拉机式函数调用方式，在实际项目中不鼓励这种形式的代码
+    int sum = simpleCalculatorObjC.realCalculator.addWithObjC(1, 2);
+    NSLog(@"sum is %i", sum);
+    [simpleCalculatorObjC release];
 }
 @end
 
