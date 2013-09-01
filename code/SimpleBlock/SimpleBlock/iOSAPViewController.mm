@@ -17,6 +17,7 @@ int(^add)(int, int);
 
 @property (nonatomic, copy) int (^addWithObjC)(int, int);
 @property (nonatomic, assign) int tag;
+@property (nonatomic, retain) NSArray *arrayForTest;
 
 @end
 
@@ -25,6 +26,7 @@ int(^add)(int, int);
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.arrayForTest = [NSArray arrayWithObject:@"just for test"];
     [self simpleBlockWithObjC];
 }
 
@@ -32,28 +34,31 @@ int(^add)(int, int);
 {
     self.tag = 1;
     NSLog(@"self.retainCount is %i", self.retainCount);
-    int (^addWithObjc)(int, int) = ^(int a, int b) {
-        self.tag = 2;
+    NSLog(@"self.arrayForTest.retainCount is %i", self.arrayForTest.retainCount);
+    self.addWithObjC = ^(int a, int b) {
+        NSLog(@"%@", self.arrayForTest);
         // 调用self方法来执行具体的加法操作
-        return [self add:a b:b];
+        return a + b;
     };
     NSLog(@"self.retainCount is %i", self.retainCount);
-    int sum = addWithObjc(1, 2);
+    NSLog(@"self.arrayForTest.retainCount is %i", self.arrayForTest.retainCount);
     NSLog(@"self.tag is %i", self.tag);
-    NSLog(@"sum is %i", sum);
 }
 
 - (int)add:(int)a b:(int)b
 {
     return a + b;
 }
-@end
 
-#if 0
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.addWithObjC(1, 2);
 }
+@end
+
+#if 0
+
 
 int sum = self.addWithObjC(1, 2);
 NSLog(@"sum is %i", sum);
